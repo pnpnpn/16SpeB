@@ -4,7 +4,6 @@ use diagnostics;
 
 #Global constants
 use constant DEBUG0 => 1;
-#use lib "$ENV{PROJECT_DIRECTORY}/../uri/bacteria/r16s/r16s_scripts/";
 
 #libraries
 use Benchmark qw(:all);
@@ -34,7 +33,7 @@ print STDERR "\n";
 printf STDERR ("Benchmark: %s\n", timestr(timediff($end_benchmark, $start_benchmark), 'all'));
 
 
-sub main 
+sub main
 {
 	print STDERR `date` . "\n";
 	print STDERR "$0 " . join(' ', @ARGV) . "\n\n";
@@ -42,7 +41,7 @@ sub main
 		print <<USAGE;
 usage: <program> --fsa=<FSA> --outdir=<DIR>
 
-Generate an individual FASTA file for each species. This is useful for 
+Generate an individual FASTA file for each species. This is useful for
 analyzing intra-species variation.
 
 OPTIONS:
@@ -152,7 +151,7 @@ USAGE
 	print STDERR "\n";
 	print STDERR "Number of unique species: " . scalar(keys %$species_hash)."\n";
 	print STDERR "\n";
-	
+
 	my @lenlst = ();
 	foreach my $species (keys %$species_hash) {
 		foreach my $s (@{$species_hash->{$species}}) {
@@ -166,4 +165,3 @@ USAGE
 	printf STDERR ("95%%-quantile sequence length: %d\n", compute_empirical_quantile(\@lenlst, 0.95));
 	printf STDERR ("Max sequence length: %d\n", $lenlst[scalar(@lenlst)-1]);
 }
-

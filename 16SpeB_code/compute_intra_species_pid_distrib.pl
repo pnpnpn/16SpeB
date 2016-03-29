@@ -4,7 +4,6 @@ use diagnostics;
 
 #Global constants
 use constant DEBUG0 => 1;
-#use lib "$ENV{PROJECT_DIRECTORY}/../uri/bacteria/r16s/r16s_scripts/";
 
 #libraries
 use Benchmark qw(:all);
@@ -39,7 +38,7 @@ print STDERR "\n";
 printf STDERR ("Benchmark: %s\n", timestr(timediff($end_benchmark, $start_benchmark), 'all'));
 
 
-sub main 
+sub main
 {
 	print STDERR `date` . "\n";
 	print STDERR "$0 " . join(" ", @ARGV) . "\n\n";
@@ -51,18 +50,18 @@ Compute the intra-species PID distribution.
 
 OPTIONS:
 --iters=<INT>        Number of random iterations for each species when sampling
---exact=<INT>        Threshold of using exact method before random sampling 
+--exact=<INT>        Threshold of using exact method before random sampling
 --randseed=<INT>     Random seed
 --genus=<STRING>     Genus-of-interest
 
 PID extraction (choose one):
---aggregate          aggregate all the PIDs 
+--aggregate          aggregate all the PIDs
 
 ./compute_intra_species_pid_distrib.pl --iters=100 --dir=test_Mycoplasma_hominis --genus=Mycoplasma
 
 Created on 6/16/2010
 
-Example: 
+Example:
 
 USAGE
 		exit(1);
@@ -147,7 +146,7 @@ USAGE
 			my $cmd = "$ALIGN_EXE $fsadir/$f $mode -s $RAND_SEED -quiet 1>$fsadir/$outfname 2>&1";
 			print STDERR "$cmd\n\n";
 			system("$cmd");
-			
+
 			#pid list
 			my $pid_over_alignlen_fn = sprintf("%s_%s_pid_over_alignlen.txt", $genus, $species);
 			$cmd = "grep 'PID over align' $fsadir/$outfname | awk {'print \$4'} > $fsadir/$pid_over_alignlen_fn";
@@ -194,7 +193,7 @@ USAGE
 			"(%.5lf, %.5lf, %.5lf, %.5lf, %.5lf)  $genus $species with %d sequences (%d pairs)\n",
 			$minpid,
 			$quantile05,
-			$median, 
+			$median,
 			$quantile95,
 			$maxpid,
             $numseqs_hash{$species},
@@ -212,7 +211,7 @@ USAGE
 			printf $minpid_hash{$species} . "\n";
 		}
 	}
-	
+
 }
 
 sub extract_and_sort_pids
@@ -237,6 +236,3 @@ sub extract_and_sort_pids
 	my @sorted = sort {$a <=> $b} @lst;
 	return \@sorted;
 }
-
-
-

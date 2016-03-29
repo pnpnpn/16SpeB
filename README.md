@@ -10,6 +10,7 @@ Instructions for a sample run with *Mycoplasma hominis*
 
 1. Compile `palign`
 
+        cd 16SpeB_code
         ./compile_palign
 
     Note: This will require g++ on your system. It's pre-installed on Mac OS X and

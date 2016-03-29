@@ -2,8 +2,6 @@
 use strict;
 use diagnostics;
 
-use lib "$ENV{PROJECT_DIRECTORY}/../uri/bacteria/r16s/r16s_scripts/";
-
 #Global constants
 use constant DEBUG0 => 1;
 
@@ -38,13 +36,13 @@ print STDERR "\n";
 printf STDERR ("Benchmark: %s\n", timestr(timediff($end_benchmark, $start_benchmark), 'all'));
 
 
-sub main 
+sub main
 {
 	print STDERR `date` . "\n";
 	print STDERR "$0 " . join(" ", @ARGV) . "\n\n";
 	if(scalar(@ARGV) == 0) {
 		print <<USAGE;
-usage: <program> <FSA-LIST> 
+usage: <program> <FSA-LIST>
 
 Print out accession numbers for each file
 
@@ -91,11 +89,10 @@ USAGE
 				$hash{$id} = 1;
 			}
 		}
-		
+
 		printf ("Filename: $fname (%d sequences)\n", $numseqs);
 		print join("\n", sort @accno_lst);
 		print "\n================================================================\n\n";
 	}
 	print STDERR "Number of SILVA sequences: $silva_count\n";
 }
-

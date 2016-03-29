@@ -2,7 +2,6 @@
 use strict;
 use diagnostics;
 
-use lib "$ENV{PROJECT_DIRECTORY}/../uri/bacteria/r16s/r16s_scripts/";
 
 #Global constants
 use constant DEBUG0 => 1;
@@ -38,13 +37,13 @@ print STDERR "\n";
 printf STDERR ("Benchmark: %s\n", timestr(timediff($end_benchmark, $start_benchmark), 'all'));
 
 
-sub main 
+sub main
 {
 	print STDERR `date` . "\n";
 	print STDERR "$0 " . join(" ", @ARGV) . "\n\n";
 	if(scalar(@ARGV) == 0) {
 		print <<USAGE;
-usage: <program> --fsa=<FSA> --leftstr=<STRING> --midstr=<STRING> --rightstr=<STRING> 
+usage: <program> --fsa=<FSA> --leftstr=<STRING> --midstr=<STRING> --rightstr=<STRING>
 
 Isolates a region where endpoints are best matches of 2 user-specified k-mers.
 
@@ -67,7 +66,7 @@ longlen-fsa=<FILE>       writes to file the filtered seqs with of longer length
 longlen-trimpos=<INT>    trim in the positive direction based on the mid
 longlen-trimneg=<INT>    trim in the negative direction based on the mid
 
-example: r16s_scripts/isolate_region_by_multimarkers.pl --fsa=Lactobacillus_seqpair.fsa 
+example: r16s_scripts/isolate_region_by_multimarkers.pl --fsa=Lactobacillus_seqpair.fsa
 
 Created on 6/22/2010
 
@@ -77,11 +76,11 @@ USAGE
 
 	my $fsa_fname = undef;
 
-	my $leftmark = create_nullmarker(); 
+	my $leftmark = create_nullmarker();
 	my $midmark = create_nullmarker();
 	my $rightmark = create_nullmarker();
 	#str, coord, arr, isValid
-	
+
 
 	my $params = {
 		max_mismatch => 3,
@@ -95,7 +94,7 @@ USAGE
 		longlen_trimneg => undef,
 
 		leftmark => $leftmark,
-		midmark => $midmark, 
+		midmark => $midmark,
 		rightmark => $rightmark,
 
 	};
@@ -164,7 +163,7 @@ USAGE
 	if($params->{longlen_trimneg} < 0 || $params->{longlen_trimpos} < 0) {
 		die "trim pos/neg must be positive";
 	}
-	
+
 	#if a new random seed is read
 	#if(defined($user_randseed)) {
 	#	$RAND_SEED = $user_randseed;
@@ -203,7 +202,7 @@ USAGE
 		die "middle primer must be defined";
 	}
 
-	#sequence arr 
+	#sequence arr
 	$params->{leftmark}->{arr} = consensus2arr($params->{leftmark});
 	$params->{rightmark}->{arr} = consensus2arr($params->{rightmark});
 	$params->{midmark}->{arr} = consensus2arr($params->{midmark});
@@ -213,10 +212,10 @@ USAGE
 	foreach my $s (@$fsa) {
 		#pivot is the position of mid-str
 		my ($has_found, $pivot) = isolate_region_helper(
-			*STDERR, 
+			*STDERR,
 			$s->{tag},
-			$s->{seq}, 
-			$params, 
+			$s->{seq},
+			$params,
 		);
 		my $seqlen = length($s->{seq});
 
@@ -252,11 +251,11 @@ USAGE
 
 		if($is_good) {
 			my %isolated_hash = (
-				tag => $s->{tag}, 
+				tag => $s->{tag},
 				seq => $shortseq,
 			);
 			my %longseq_hash = (
-				tag => $s->{tag}, 
+				tag => $s->{tag},
 				seq => $longseq,
 			);
 
@@ -294,7 +293,7 @@ sub print_marker_params
 	my ($fptr, $tag, $marker) = @_;
 
 	if($marker->{isValid}) {
-		printf $fptr ("$tag k-mer/coord: %s (%d)\n", 
+		printf $fptr ("$tag k-mer/coord: %s (%d)\n",
 			$marker->{str}, $marker->{coord},
 		);
 	}
@@ -307,9 +306,9 @@ sub create_nullmarker
 {
 	#str, coord, arr, isValid
 	my %hash = (
-		str => undef, 
+		str => undef,
 		coord => undef,
-		arr => undef, 
+		arr => undef,
 		isValid => 0,
 	);
 	return \%hash;
@@ -321,7 +320,7 @@ sub isolate_region_helper
 	my (
 		$fptr,
 		$seqname,
-		$seq, 
+		$seq,
 		$params,
 	) = @_;
 
@@ -340,8 +339,8 @@ sub isolate_region_helper
 	foreach my $mid (@$midlst) {
 		my $is_goodpivot = 1;
 		my %record = (
-			left => -1, 
-			right => -1, 
+			left => -1,
+			right => -1,
 			mid => $mid,
 		);
 		if($params->{leftmark}{isValid}) {
@@ -349,7 +348,7 @@ sub isolate_region_helper
 			my $lit_diff = $params->{midmark}->{coord} - $params->{leftmark}->{coord};
 			foreach my $left (@$leftlst) {
 				if(
-					$left < $mid 
+					$left < $mid
 					&& abs( ($mid-$left) - $lit_diff) <= $params->{offsetleft}
 				) {
 					$found_left = 1;
@@ -366,7 +365,7 @@ sub isolate_region_helper
 			my $lit_diff = $params->{rightmark}->{coord} - $params->{midmark}->{coord};
 			foreach my $right (@$rightlst) {
 				if(
-					$right > $mid 
+					$right > $mid
 					&& abs( ($right -$mid) - $lit_diff) <= $params->{offsetright}
 				) {
 					$found_right = 1;
@@ -385,7 +384,7 @@ sub isolate_region_helper
 
 	#display everything on the recordlst
 	foreach my $record (@recordlst) {
-		printf STDERR ("left=%d  mid=%d  right=%d\n", 
+		printf STDERR ("left=%d  mid=%d  right=%d\n",
 			$record->{left}, $record->{mid}, $record->{right},
 		);
 	}
@@ -438,6 +437,3 @@ sub compute_ntfreq
 
 	return \@count;
 }
-
-
-

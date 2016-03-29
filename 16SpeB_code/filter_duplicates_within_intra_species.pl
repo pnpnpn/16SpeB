@@ -4,7 +4,6 @@ use diagnostics;
 
 #Global constants
 use constant DEBUG0 => 1;
-#use lib "$ENV{PROJECT_DIRECTORY}/../uri/bacteria/r16s/r16s_scripts/";
 
 #libraries
 use Benchmark qw(:all);
@@ -34,13 +33,13 @@ print STDERR "\n";
 printf STDERR ("Benchmark: %s\n", timestr(timediff($end_benchmark, $start_benchmark), 'all'));
 
 
-sub main 
+sub main
 {
 	print STDERR `date` . "\n";
 	print STDERR "$0 " . join(" ", @ARGV) . "\n\n";
 	if(scalar(@ARGV) == 0) {
 		print <<USAGE;
-usage: <program> --fsa=<FSA> 
+usage: <program> --fsa=<FSA>
 
 Filter duplicates within intra-species
 
@@ -53,7 +52,7 @@ OPTIONS:
 --nobadwords         does not filter 'badwords'
 
 Example:
-./filter_duplicates_within_intra_species.pl --fsa=test_Mycoplasma_hominis/Mycoplasma_hominis_raw_16s.fsa --species=Mycoplasma_hominis --nobadwords --auxin=test_Mycoplasma_hominis/Mycoplasma_hominis_raw_v6.fsa --auxout=test_Mycoplasma_hominis/Mycoplasma_hominis_nondup_v6.fsa 
+./filter_duplicates_within_intra_species.pl --fsa=test_Mycoplasma_hominis/Mycoplasma_hominis_raw_16s.fsa --species=Mycoplasma_hominis --nobadwords --auxin=test_Mycoplasma_hominis/Mycoplasma_hominis_raw_v6.fsa --auxout=test_Mycoplasma_hominis/Mycoplasma_hominis_nondup_v6.fsa
 
 Created on 6/14/2010
 
@@ -128,11 +127,11 @@ USAGE
 	}
 
 	my @badwords = (
-		' sp[\s\;\.]', 
-		' genomosp[\s\;\.]', 
-		' uncultured ', 
-		' Persistence ', 
-		' stable enrichment ', 
+		' sp[\s\;\.]',
+		' genomosp[\s\;\.]',
+		' uncultured ',
+		' Persistence ',
+		' stable enrichment ',
 	);
 	if($use_badwordsfilter) {
 		$fsa = filter_out_keywords(*STDERR, $fsa, \@badwords);
@@ -162,7 +161,7 @@ USAGE
 	print STDERR "\n";
 	print STDERR "Number of unique species: " . scalar(keys %$species_hash)."\n";
 	print STDERR "\n";
-	
+
 	my @newfsa = ();
 	my @lenlst = ();
 	foreach my $species (sort keys %$species_hash) {
@@ -214,6 +213,3 @@ sub filter_auxin_for_duplicates
 	}
 	return \@new_auxfsa;
 }
-
-
-
