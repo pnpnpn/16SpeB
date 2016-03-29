@@ -24,6 +24,8 @@ Instructions for a sample run with *Mycoplasma hominis*
 
 3. Filtering regions
 
+    Create an output directory called `test_Mycoplasma_hominis` with `mkdir test_Mycoplasma_hominis`
+
         ./isolate_multiregions.pl --midstr='ACTCCTACGGGAGGCAGCA' --rightstr='GTCGTCAGCTCGTGYYG' --rightcoord=1061 --midcoord=338 --right-trimneg=258 --right-trimpos=0 --mid-trimneg=270 --mid-trimpos=0 --longlen-trimneg=270 --longlen-trimpos=1000 --offsetleft=100 --offsetright=100 --fsa=relevant_species/Mycoplasma_hominis.fsa --longlen-fsa=test_Mycoplasma_hominis/Mycoplasma_hominis_raw_16s.fsa --mid-fsa=test_Mycoplasma_hominis/Mycoplasma_hominis_raw_v2.fsa --right-fsa=test_Mycoplasma_hominis/Mycoplasma_hominis_raw_v6.fsa
 
 4. Removing exact duplicates within intra-species
