@@ -8,7 +8,7 @@ Example
 
 Instructions for a sample run with *Mycoplasma hominis*
 
-1. Compile palign
+1. Compile `palign`
 
         ./compile_palign
 
