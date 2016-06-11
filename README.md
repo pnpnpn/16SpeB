@@ -1,5 +1,6 @@
 16SpeB
 ===
+By Chun Nin Adam Wong, Patrick Ng, Angela E. Douglas
 
 You can download the archive of this repository at https://github.com/pnpnpn/16SpeB/archive/master.zip
 
