@@ -40,4 +40,4 @@ Instructions for a sample run with *Mycoplasma hominis*
 Manual
 ---
 
-A more detailed manual can be found at [abc](docs/16SpeB_manual.doc?raw=1)
+A more detailed manual can be found at [16SpeB_manual.doc](docs/16SpeB_manual.doc?raw=1)
