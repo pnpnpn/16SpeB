@@ -35,3 +35,8 @@ Instructions for a sample run with *Mycoplasma hominis*
 5. Computing intra-species PID
 
         ./compute_intra_species_pid_distrib.pl --iters=100 --dir=test_Mycoplasma_hominis --genus=Mycoplasma
+
+Manual
+---
+
+A more detailed manual can be found at [abc](docs/16SpeB_manual.doc?raw=1)
